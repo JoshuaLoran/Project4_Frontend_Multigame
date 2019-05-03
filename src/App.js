@@ -10,6 +10,7 @@ class App extends Component {
   state = {
     array: [0,0,0,0,0,0,0,0,0],
     user_id: undefined,
+    logged_in: false,
     user_emoji: './images/1f42e',
     opponent_emoji: './images/1f437'
   }
@@ -35,12 +36,12 @@ class App extends Component {
 
   // Set state with incoming data
   handleReceiveNewData = (data) => {
-    console.log(data)
     if (data.array !== this.state.array) {
       this.setState({
         array: data.array
       })
     }
+    console.log(this.state.array)
   }
 
   // Handle gameboard click
@@ -52,6 +53,7 @@ class App extends Component {
         newArr[i] = this.state.user /// '1' should be changed to USER ID
       }
     }
+    console.log(newArr)
     this.sub.send({ array: newArr, id: 1 })
   }
 
@@ -73,7 +75,8 @@ class App extends Component {
     fetch(url, config)
       .then(resp => resp.json())
       .then(data =>
-        this.setState({user_id: data.id}))
+        this.setState({user_id: data.id, logged_in: true}))
+
   }
 
 
@@ -85,8 +88,9 @@ class App extends Component {
   render() {
     return (
       <Router>
-         <Route exact path='/login' component={() => <Login handleLogin={this.handleLogin}/>}/>
+         <Route exact path='/login' component={() => <Login handleLogin={this.handleLogin} logged_in={this.state.logged_in}/>}/>
          <Route exact path='/tictactoe' component={() => <GameBoard handleResetClick={this.handleResetClick} array={this.state.array} clickHandle={this.clickHandle}/>}/>
+
       </Router>
     )
   }
