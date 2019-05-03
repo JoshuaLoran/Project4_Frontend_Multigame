@@ -1,32 +1,54 @@
 import React, { Component } from 'react'
+import BoardTile from '../components/boardTile.js'
 
 export default class GameBoard extends Component {
   constructor(){
     super()
     this.state = {
-      winner: 0
+      winner: 0,
+      classVert: "vert",
+      classHori: "hori",
+      classVertHor: "vert hori"
     }
   }
 
   render(){
+    console.log(this.props.array.slice(0, 3))
+    console.log(this.props.array.slice(3, 6))
+    console.log(this.props.array.slice(6, 9))
+
+
     return(
       <div>
         <h1>Tic Tac Toe</h1>
+        <button onClick={this.props.handleResetClick}>New game</button>
         <table>
           <tr>
-            <td id="1" onClick={this.props.clickHandle} />
-            <td id="2" onClick={this.props.clickHandle} className="vert"></td>
-            <td id="3" onClick={this.props.clickHandle} />
+            {this.props.array.slice(0,3).map((element, idx) => {
+              if (idx === 1){
+                return <BoardTile idPass={idx + 1} onClick={this.props.clickHandle} classPass={this.state.classVert}/>
+              } else {
+                return <BoardTile idPass={idx + 1}onClick={this.props.clickHandle} />
+              }
+            })}
           </tr>
           <tr>
-            <td id="4" onClick={this.props.clickHandle} className="hori" />
-            <td id="5" onClick={this.props.clickHandle} className="vert hori"></td>
-            <td id="6" onClick={this.props.clickHandle} className="hori" />
+            {this.props.array.slice(3,6).map((element, idx) => {
+              if (idx === 1){
+                return <BoardTile idPass={idx + 4} onClick={this.props.clickHandle} classPass={this.state.classVertHor}/>
+              } else {
+                return <BoardTile idPass={idx + 4} classPass={this.state.classHori} onClick={this.props.clickHandle} />
+              }
+            })}
           </tr>
           <tr>
-            <td id="7" onClick={this.props.clickHandle} />
-            <td id="8" onClick={this.props.clickHandle} className="vert"></td>
-            <td id="9" onClick={this.props.clickHandle} />
+            {this.props.array.slice(6,9).map((element, idx) => {
+              if (idx === 1){
+                return <BoardTile idPass={idx + 7} onClick={this.props.clickHandle} classPass={this.state.classVert}/>
+              } else {
+                return <BoardTile idPass={idx + 7} onClick={this.props.clickHandle} />
+              }
+            })}
           </tr>
         </table>
       </div>

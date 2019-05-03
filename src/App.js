@@ -10,12 +10,17 @@ class App extends Component {
   state = {
     array: [0,0,0,0,0,0,0,0,0],
     user: 1,
-    imageUrl: ''
+    user_emoji: './images/1f42e',
+    opponent_emoji: './images/1f437'
+  }
+
+  handleResetClick = (event) => {
+    this.sub.send({ array: [0,0,0,0,0,0,0,0,0], id: 1 })
   }
 
   //load and connect
   componentDidMount() {
-    window.fetch('http://localhost:3001/games/1')
+    fetch('http://localhost:3001/games/1')
       .then(res => res.json())
       .then(json => this.setState({
         array: json.array
@@ -44,7 +49,7 @@ class App extends Component {
     let newArr = this.state.array
     for (let i=0; i<newArr.length; i++){
       if (i === event.target.id-1) {//should add user control of spaces
-        newArr[i] = "works" /// '1' should be changed to USER ID
+        newArr[i] = this.state.user /// '1' should be changed to USER ID
       }
     }
     this.sub.send({ array: newArr, id: 1 })
@@ -65,7 +70,7 @@ class App extends Component {
     return (
       <Router>
          <Route exact path='/login' component={Login}/>
-         <Route exact path='/tictactoe' component={() => <GameBoard array={this.state.array} clickHandle={this.clickHandle}/>}/>
+         <Route exact path='/tictactoe' component={() => <GameBoard handleResetClick={this.handleResetClick} array={this.state.array} clickHandle={this.clickHandle}/>}/>
       </Router>
     )
   }
