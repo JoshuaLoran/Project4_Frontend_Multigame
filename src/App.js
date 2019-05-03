@@ -52,6 +52,12 @@ class App extends Component {
     this.sub.send({ array: e.target.value.split(''), id: 1 })
   }
 
+  handleLogin = (e, username) => {
+    e.preventDefault()
+    console.log('inside handleLogin')
+    console.log(username)
+  }
+
 
  //some form of user input for testing
 
@@ -61,7 +67,7 @@ class App extends Component {
   render() {
     return (
       <Router>
-         <Route exact path='/login' component={Login}/>
+         <Route exact path='/login' component={() => <Login handleLogin={this.handleLogin}/>}/>
          <Route exact path='/tictactoe' component={() => <GameBoard clickHandle={this.clickHandle}/>}/>
       </Router>
     )
