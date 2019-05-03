@@ -7,8 +7,10 @@ export default class GameBoard extends Component {
       winner: 0
     }
   }
-
+ 
   render(){
-    return( null )
+    return(
+      null
+    )
   }
 }

@@ -9,7 +9,8 @@ class App extends Component {
   // Setup a gameboard
   state = {
     array: [0,0,0,0,0,0,0,0,0],
-    user: 1
+    user: 1,
+    imageUrl: ''
   }
 
   //load and connect
@@ -24,6 +25,8 @@ class App extends Component {
       received: this.handleReceiveNewData
     })
   }
+
+
 
   // Set state with incoming data
   handleReceiveNewData = (data) => {
@@ -62,7 +65,7 @@ class App extends Component {
     return (
       <Router>
          <Route exact path='/login' component={Login}/>
-         <Route exact path='/tictactoe' component={() => <GameBoard clickHandle={this.clickHandle}/>}/>
+         <Route exact path='/tictactoe' component={() => <GameBoard array={this.state.array} clickHandle={this.clickHandle}/>}/>
       </Router>
     )
   }
