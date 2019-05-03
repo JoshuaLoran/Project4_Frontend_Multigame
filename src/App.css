@@ -1,3 +1,8 @@
+body {
+  text-align: center;
+  padding-top: 30px;
+}
+
 h1 {
   text-align: center;
 }
@@ -15,6 +20,10 @@ table {
 .hori {
   border-top: 2px solid black;
   border-bottom: 2px solid black;
+}
+
+form {
+  display: inline-block;
 }
 
 .App {

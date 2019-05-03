@@ -9,12 +9,12 @@ class App extends Component {
   // Setup a gameboard
   state = {
     array: [0,0,0,0,0,0,0,0,0],
-    user: 1
+    user_id: undefined
   }
 
   //load and connect
   componentDidMount() {
-    window.fetch('http://localhost:3001/games/1')
+    fetch('http://localhost:3001/games/1')
       .then(res => res.json())
       .then(json => this.setState({
         array: json.array
@@ -52,6 +52,22 @@ class App extends Component {
     this.sub.send({ array: e.target.value.split(''), id: 1 })
   }
 
+  handleLogin = (e, name) => {
+    e.preventDefault()
+    let url = 'http://localhost:3001/users'
+    let config = {
+      method: 'POST',
+      headers: {'Accept': 'application/json',
+                'Content-Type': 'application/json'},
+      body: JSON.stringify({name: name})
+    }
+
+    fetch(url, config)
+      .then(resp => resp.json())
+      .then(data =>
+        this.setState({user_id: data.id}))
+  }
+
 
  //some form of user input for testing
 
@@ -61,7 +77,7 @@ class App extends Component {
   render() {
     return (
       <Router>
-         <Route exact path='/login' component={Login}/>
+         <Route exact path='/login' component={() => <Login handleLogin={this.handleLogin}/>}/>
          <Route exact path='/tictactoe' component={() => <GameBoard clickHandle={this.clickHandle}/>}/>
       </Router>
     )
