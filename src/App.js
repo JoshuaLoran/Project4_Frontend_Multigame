@@ -9,7 +9,13 @@ class App extends Component {
   // Setup a gameboard
   state = {
     array: [0,0,0,0,0,0,0,0,0],
-    user_id: undefined
+    user_id: undefined,
+    user_emoji: './images/1f42e',
+    opponent_emoji: './images/1f437'
+  }
+
+  handleResetClick = (event) => {
+    this.sub.send({ array: [0,0,0,0,0,0,0,0,0], id: 1 })
   }
 
   //load and connect
@@ -24,6 +30,8 @@ class App extends Component {
       received: this.handleReceiveNewData
     })
   }
+
+
 
   // Set state with incoming data
   handleReceiveNewData = (data) => {
@@ -41,7 +49,7 @@ class App extends Component {
     let newArr = this.state.array
     for (let i=0; i<newArr.length; i++){
       if (i === event.target.id-1) {//should add user control of spaces
-        newArr[i] = "works" /// '1' should be changed to USER ID
+        newArr[i] = this.state.user /// '1' should be changed to USER ID
       }
     }
     this.sub.send({ array: newArr, id: 1 })
@@ -78,7 +86,7 @@ class App extends Component {
     return (
       <Router>
          <Route exact path='/login' component={() => <Login handleLogin={this.handleLogin}/>}/>
-         <Route exact path='/tictactoe' component={() => <GameBoard clickHandle={this.clickHandle}/>}/>
+         <Route exact path='/tictactoe' component={() => <GameBoard handleResetClick={this.handleResetClick} array={this.state.array} clickHandle={this.clickHandle}/>}/>
       </Router>
     )
   }
