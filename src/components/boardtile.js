@@ -8,13 +8,7 @@ export default class GameBoard extends Component {
     }
   }
 
-  clickHandle = (event) => {
-    console.log(event.target)
-  }
-
   render(){
-    return(
-      null
-    )
+    return( null )
   }
 }

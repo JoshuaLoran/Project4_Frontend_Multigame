@@ -9,7 +9,8 @@ import Login from './components/login'
 class App extends Component {
   // Setup a gameboard
   state = {
-    array: []
+    array: [0,0,0,0,0,0,0,0,0],
+    user: 1
   }
 
   //load and connect
@@ -38,10 +39,13 @@ class App extends Component {
   // Handle gameboard click
   clickHandle = (event) => {
     console.log(event.target.id)
-    // this.setState({
-    //   array: [...this.state.array, event.target.id]
-    // })
-    // this.sub.send({array: this.state.array, id: 1})
+    let newArr = this.state.array
+    for (let i=0; i<newArr.length; i++){
+      if (i === event.target.id-1) {//should add user control of spaces
+        newArr[i] = "works" /// '1' should be changed to USER ID
+      }
+    }
+    this.sub.send({ array: newArr, id: 1 })
   }
 
   // Convert input into array and send it to the backend
