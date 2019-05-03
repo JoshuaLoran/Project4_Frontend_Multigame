@@ -1,7 +1,10 @@
 import React, { Component } from 'react'
 import './App.css'
+import ReactDOM from 'react-dom'
 import ActionCable from 'actioncable'
+import {BrowserRouter as Router, Route} from 'react-router-dom'
 import GameBoard from './containers/gameboard'
+import Login from './components/login'
 
 class App extends Component {
   // Setup a gameboard
@@ -48,15 +51,19 @@ class App extends Component {
 
 
  //some form of user input for testing
-  render() {
-    return (
-      <div>
-        <textarea onChange={this.handleChange} />
-        <GameBoard clickHandle={this.clickHandle} handleChange={this.handleChange} />
 
-      </div>
-    )
-  }
+
+
+
+  // render() {
+  //   return (
+  //     <div>
+  //       <textarea onChange={this.handleChange} />
+  //       <GameBoard clickHandle={this.clickHandle} handleChange={this.handleChange} />
+  //
+  //     </div>
+  //   )
+  // }
 }
 
 export default App
