@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import './App.css'
-import ReactDOM from 'react-dom'
 import ActionCable from 'actioncable'
 import {BrowserRouter as Router, Route} from 'react-router-dom'
 import GameBoard from './containers/gameboard'
@@ -59,15 +58,15 @@ class App extends Component {
 
 
 
-  // render() {
-  //   return (
-  //     <div>
-  //       <textarea onChange={this.handleChange} />
-  //       <GameBoard clickHandle={this.clickHandle} handleChange={this.handleChange} />
-  //
-  //     </div>
-  //   )
-  // }
+  render() {
+    return (
+      <Router>
+         <Route exact path='/login' component={Login}/>
+         <Route exact path='/tictactoe' component={() => <GameBoard clickHandle={this.clickHandle}/>}/>
+      </Router>
+    )
+  }
+
 }
 
 export default App
