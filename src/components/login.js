@@ -13,7 +13,6 @@ export default class Login extends Component {
 
   handleChange = e => {
     e.preventDefault()
-    console.log(e.target.value)
     this.setState({[e.target.name]: e.target.value})
   }
 
@@ -32,6 +31,7 @@ export default class Login extends Component {
 
       <input type="submit" value="Submit" onClick={(e) => {this.props.handleLogin(e,this.state.name)}}/>
       </form>
+      {/* Give user Emoji options */}
       <EmojiOptions handleEmojiChoice={this.props.handleEmojiChoice} userEmoji={this.state.user_emoji} emojis={this.props.emojis}/>
     </div>)
   }

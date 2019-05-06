@@ -1,6 +1,8 @@
+// imports
 import React, { Component, Fragment } from 'react'
 import BoardTile from '../components/boardtile.js'
 
+// class workings and export
 export default class GameBoard extends Component {
   constructor(){
     super()
@@ -10,7 +12,7 @@ export default class GameBoard extends Component {
       classVertHor: "vert hori",
     }
   }
-
+  // Render the gameboard by mapping the game array and it's interactions over the board
   render(){
     return(
       <Fragment>

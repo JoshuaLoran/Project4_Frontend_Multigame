@@ -1,3 +1,4 @@
+// Imports
 import React, { Component } from 'react'
 import './App.css'
 import ActionCable from 'actioncable'
@@ -11,6 +12,7 @@ import Mouse from './images/mouse.png'
 import Pig from './images/pig.png'
 import Rooster from './images/rooster.png'
 
+// Some vars that shouldn't be state
 const emojis = [Cow, Chick, Horse, Mouse, Pig, Rooster]
 const ticTacToeReset = [{id: 0, user_emoji: ''},
                         {id: 0, user_emoji: ''},
@@ -23,7 +25,9 @@ const ticTacToeReset = [{id: 0, user_emoji: ''},
                         {id: 0, user_emoji: ''}
                         ]
 
+// The class and it's workings
 class App extends Component {
+
   // Setup a gameboard
   state = {
     array: ticTacToeReset,
@@ -31,7 +35,6 @@ class App extends Component {
     user_emoji: emojis[0],
     opponent_emoji: '',
     logged_in: false,
-
   }
 
   // Reset game with fresh data
@@ -60,7 +63,6 @@ class App extends Component {
         array: data.array
       })
     }
-    console.log(this.state.array)
   }
 
   //Collect users emojii choice
