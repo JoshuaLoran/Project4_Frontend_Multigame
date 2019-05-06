@@ -11,6 +11,7 @@ import Mouse from './images/mouse.png'
 import Pig from './images/pig.png'
 import Rooster from './images/rooster.png'
 
+const emojis = [Cow, Chick, Horse, Mouse, Pig, Rooster]
 const ticTacToeReset = [{id: 0, user_emoji: ''},
                         {id: 0, user_emoji: ''},
                         {id: 0, user_emoji: ''},
@@ -21,8 +22,6 @@ const ticTacToeReset = [{id: 0, user_emoji: ''},
                         {id: 0, user_emoji: ''},
                         {id: 0, user_emoji: ''}
                         ]
-
-const emojis = [Cow, Chick, Horse, Mouse, Pig, Rooster]
 
 class App extends Component {
   // Setup a gameboard
@@ -35,12 +34,7 @@ class App extends Component {
 
   }
 
-  setUserEmoji = (event) => {
-    this.setState({
-      user_emoji: emojis[event.target.id]
-    })
-  }
-
+  // Reset game with fresh data
   handleResetClick = (event) => {
     this.sub.send({ array: ticTacToeReset, id: 1 })
   }
@@ -69,20 +63,22 @@ class App extends Component {
     console.log(this.state.array)
   }
 
+  //Collect users emojii choice
+  setUserEmoji = (event) => {
+    this.setState({
+      user_emoji: emojis[event.target.id]
+    })
+  }
+
   // Handle gameboard click
   clickHandle = (event) => {
     let newArr = this.state.array
     for (let i=0; i<newArr.length; i++){
-      if (i === event.target.id-1) {//should add user control of spaces
-        newArr[i] = {id: this.state.user_id, user_emoji: this.state.user_emoji} /// '1' should be changed to USER ID
+      if (i === event.target.id-1) {
+        newArr[i] = {id: this.state.user_id, user_emoji: this.state.user_emoji}
       }
     }
     this.sub.send({ array: newArr, id: 1 })
-  }
-
-  // Convert input into array and send it to the backend
-  handleChange = e => {
-    this.sub.send({ array: e.target.value.split(''), id: 1 })
   }
 
   handleLogin = (e, name) => {
