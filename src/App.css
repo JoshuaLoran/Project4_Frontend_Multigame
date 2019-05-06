@@ -8,8 +8,10 @@ body {
   padding-top: 30px;
 }
 
-#tictactoepg{
+.tictactoepg{
   height: 400px;
+  left: 50%;
+  position:fixed;
 }
 
 h1 {

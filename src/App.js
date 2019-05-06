@@ -4,6 +4,12 @@ import ActionCable from 'actioncable'
 import {BrowserRouter as Router, Route} from 'react-router-dom'
 import GameBoard from './containers/gameboard'
 import Login from './components/login'
+import Cow from './images/cow.png'
+import Chick from './images/chick.png'
+import Horse from './images/horse.png'
+import Mouse from './images/mouse.png'
+import Pig from './images/pig.png'
+import Rooster from './images/rooster.png'
 
 const ticTacToeReset = [{id: 0, user_emoji: ''},
                         {id: 0, user_emoji: ''},
@@ -16,58 +22,55 @@ const ticTacToeReset = [{id: 0, user_emoji: ''},
                         {id: 0, user_emoji: ''}
                         ]
 
+const emojis = [Cow, Chick, Horse, Mouse, Pig, Rooster]
+
 class App extends Component {
   // Setup a gameboard
   state = {
     array: ticTacToeReset,
     user_id: 0,
-    user_emoji: '',
+    user_emoji: emojis[0],
     opponent_emoji: '',
-    logged_in: false
+    logged_in: false,
+
   }
 
   // Let the user choose an emoji
   setUserEmoji = (animal) => {
     switch (animal) {
       case 'pig': {
-       let pig = require('./image' + animal + '.png')
         this.setState({
-          userEmoji: pig
+          userEmoji: emojis[4]
         })
         break;
       }
       case 'cow': {
-        let cow = require('./image' + animal + '.png')
         this.setState({
-          userEmoji: cow
+          userEmoji: emojis[0]
         })
         break;
       }
       case 'horse': {
-        let horse = require('./image' + animal + '.png')
         this.setState({
-          userEmoji: horse
+          userEmoji: emojis[2]
         })
         break;
       }
       case 'mouse': {
-        let mouse = require('./image' + animal + '.png')
         this.setState({
-          userEmoji: mouse
+          userEmoji: emojis[3]
         })
         break;
       }
       case 'rooster': {
-        let rooster = require('./image' + animal + '.png')
         this.setState({
-          userEmoji: rooster
+          userEmoji: emojis[5]
         })
         break;
       }
       default: {
-        let chick = require('./image/chick.png')
         this.setState({
-          userEmoji: chick
+          userEmoji: emojis[1]
         })
       }
     }
@@ -148,7 +151,10 @@ class App extends Component {
   render() {
     return (
       <Router>
-         <Route exact path='/login' component={() => <Login handleLogin={this.handleLogin} logged_in={this.state.logged_in}/>}/>
+         <Route exact path='/login' component={() => <Login handleLogin={this.handleLogin}
+                                                            logged_in={this.state.logged_in}
+                                                            userEmoji={this.state.user_emoji}
+                                                            emojis={emojis}/>}/>
          <Route exact path='/tictactoe' component={() => <GameBoard handleResetClick={this.handleResetClick}
                                                                     array={this.state.array}
                                                                     clickHandle={this.clickHandle}

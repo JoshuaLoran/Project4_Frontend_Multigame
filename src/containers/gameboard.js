@@ -16,7 +16,7 @@ export default class GameBoard extends Component {
       <Fragment>
         <h1>Tic Tac Toe</h1>
         <button onClick={this.props.handleResetClick}>New game</button>
-        <tbody>
+        <tbody className="tictactoepg">
           <tr>
             {this.props.array.slice(0,3).map((element, idx) => {
               if (idx === 1){
