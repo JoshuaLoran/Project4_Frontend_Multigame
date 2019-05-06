@@ -10,8 +10,7 @@ body {
 
 .tictactoepg{
   height: 400px;
-  left: 50%;
-  position:fixed;
+  margin: auto;
 }
 
 h1 {
@@ -21,10 +20,7 @@ td {
   width: 100px;
   height: 100px;
 }
-table {
-  margin: 5px auto;
-  height: 400px;
-}
+
 .vert {
   border-left: 2px solid black;
   border-right: 2px solid black;

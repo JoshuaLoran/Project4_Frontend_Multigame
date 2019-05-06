@@ -8,7 +8,7 @@ export default class BoardTile extends Component {
       <td onClick={this.props.onClick}
           id={this.props.idPass}
           className={this.props.classPass}>
-          <img src={this.props.tileInfo} alt=''></img> 
+          <img src={this.props.tileInfo.user_emoji} alt=''></img> 
       </td>
     )
 
