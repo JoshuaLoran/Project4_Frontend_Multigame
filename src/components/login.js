@@ -6,7 +6,8 @@ export default class Login extends Component {
   constructor(props){
     super(props)
     this.state = {
-      name: undefined
+      name: undefined,
+      pw: undefined
     }
   }
 
@@ -28,8 +29,8 @@ export default class Login extends Component {
       <h2> Login </h2>
       <form>
       <input type="text" placeholder="username" value={this.state.name} name="name" onChange={this.handleChange}/> <br/>
-
-      <input type="submit" value="Submit" onClick={(e) => {this.props.handleLogin(e,this.state.name)}}/>
+      <input type="password" placeholder="password" name="pw" value={this.state.pw} onChange={this.handleChange} required/> <br/>
+      <input type="submit" value="Submit" onClick={(e) => {this.props.handleLogin(e,this.state.name, this.state.pw)}}/>
       </form>
     </div>)
   }

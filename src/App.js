@@ -6,14 +6,19 @@ import GameBoard from './containers/gameboard'
 import Login from './components/login'
 
 class App extends Component {
+
+
+    state = {
+      array: [0,0,0,0,0,0,0,0,0],
+      user_id: undefined,
+      logged_in: false,
+      user_emoji: './images/1f42e',
+      opponent_emoji: './images/1f437'
+    }
+
+
   // Setup a gameboard
-  state = {
-    array: [0,0,0,0,0,0,0,0,0],
-    user_id: undefined,
-    logged_in: false,
-    user_emoji: './images/1f42e',
-    opponent_emoji: './images/1f437'
-  }
+
 
   handleResetClick = (event) => {
     this.sub.send({ array: [0,0,0,0,0,0,0,0,0], id: 1 })
@@ -62,20 +67,24 @@ class App extends Component {
     this.sub.send({ array: e.target.value.split(''), id: 1 })
   }
 
-  handleLogin = (e, name) => {
+  handleLogin = (e, name, pw) => {
+
     e.preventDefault()
-    let url = 'http://localhost:3001/users'
+    let url = 'http://localhost:3001/login'
     let config = {
       method: 'POST',
-      headers: {'Accept': 'application/json',
-                'Content-Type': 'application/json'},
-      body: JSON.stringify({name: name})
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({name: name, password: pw})
     }
 
     fetch(url, config)
       .then(resp => resp.json())
-      .then(data =>
-        this.setState({user_id: data.id, logged_in: true}))
+
+      .then( data => {
+
+        console.log(data)
+      })
+        //this.setState({user_id: data.id, logged_in: true}))
 
   }
 
