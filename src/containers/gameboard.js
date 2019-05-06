@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import BoardTile from '../components/boardTile.js'
+import BoardTile from '../components/boardtile.js'
 
 export default class GameBoard extends Component {
   constructor(){
@@ -13,13 +13,11 @@ export default class GameBoard extends Component {
   }
 
   render(){
-    console.log(this.props.array.slice(0, 3))
-    console.log(this.props.array.slice(3, 6))
-    console.log(this.props.array.slice(6, 9))
+    console.log(this.props.array)
 
 
     return(
-      <div>
+      <div id='tictactoepg'>
         <h1>Tic Tac Toe</h1>
         <button onClick={this.props.handleResetClick}>New game</button>
         <table>
