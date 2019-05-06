@@ -20,8 +20,10 @@ class App extends Component {
   // Setup a gameboard
   state = {
     array: ticTacToeReset,
-            user_id: 0,
-            userEmoji: ''
+    user_id: 0,
+    user_emoji: '',
+    opponent_emoji: '',
+    logged_in: false
   }
 
   // Let the user choose an emoji
@@ -99,6 +101,7 @@ class App extends Component {
         array: data.array
       })
     }
+    console.log(this.state.array)
   }
 
   // Handle gameboard click
@@ -110,6 +113,7 @@ class App extends Component {
         newArr[i] = {id: this.state.user_id, user_emoji: this.state.user_emoji} /// '1' should be changed to USER ID
       }
     }
+    console.log(newArr)
     this.sub.send({ array: newArr, id: 1 })
   }
 
@@ -131,7 +135,8 @@ class App extends Component {
     fetch(url, config)
       .then(resp => resp.json())
       .then(data =>
-        this.setState({user_id: data.id}))
+        this.setState({user_id: data.id, logged_in: true}))
+
   }
 
 
@@ -143,7 +148,7 @@ class App extends Component {
   render() {
     return (
       <Router>
-         <Route exact path='/login' component={() => <Login handleLogin={this.handleLogin}/>}/>
+         <Route exact path='/login' component={() => <Login handleLogin={this.handleLogin} logged_in={this.state.logged_in}/>}/>
          <Route exact path='/tictactoe' component={() => <GameBoard handleResetClick={this.handleResetClick}
                                                                     array={this.state.array}
                                                                     clickHandle={this.clickHandle}

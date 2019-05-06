@@ -1,6 +1,15 @@
+html {
+  height: 100%;
+}
+
 body {
+  height: 100%;
   text-align: center;
   padding-top: 30px;
+}
+
+#tictactoepg{
+  height: 400px;
 }
 
 h1 {
@@ -12,6 +21,7 @@ td {
 }
 table {
   margin: 5px auto;
+  height: 400px;
 }
 .vert {
   border-left: 2px solid black;
