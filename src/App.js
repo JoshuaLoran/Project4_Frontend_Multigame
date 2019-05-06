@@ -5,26 +5,85 @@ import {BrowserRouter as Router, Route} from 'react-router-dom'
 import GameBoard from './containers/gameboard'
 import Login from './components/login'
 
+const ticTacToeReset = [{id: 0, user_emoji: ''},
+                        {id: 0, user_emoji: ''},
+                        {id: 0, user_emoji: ''},
+                        {id: 0, user_emoji: ''},
+                        {id: 0, user_emoji: ''},
+                        {id: 0, user_emoji: ''},
+                        {id: 0, user_emoji: ''},
+                        {id: 0, user_emoji: ''},
+                        {id: 0, user_emoji: ''}
+                        ]
+
 class App extends Component {
   // Setup a gameboard
   state = {
-    array: [0,0,0,0,0,0,0,0,0],
-    user_id: undefined,
-    user_emoji: './images/1f42e',
-    opponent_emoji: './images/1f437'
+    array: ticTacToeReset,
+            user_id: 0,
+            userEmoji: ''
   }
 
+  // Let the user choose an emoji
+  setUserEmoji = (animal) => {
+    switch (animal) {
+      case 'pig': {
+       let pig = require('./image' + animal + '.png')
+        this.setState({
+          userEmoji: pig
+        })
+        break;
+      }
+      case 'cow': {
+        let cow = require('./image' + animal + '.png')
+        this.setState({
+          userEmoji: cow
+        })
+        break;
+      }
+      case 'horse': {
+        let horse = require('./image' + animal + '.png')
+        this.setState({
+          userEmoji: horse
+        })
+        break;
+      }
+      case 'mouse': {
+        let mouse = require('./image' + animal + '.png')
+        this.setState({
+          userEmoji: mouse
+        })
+        break;
+      }
+      case 'rooster': {
+        let rooster = require('./image' + animal + '.png')
+        this.setState({
+          userEmoji: rooster
+        })
+        break;
+      }
+      default: {
+        let chick = require('./image/chick.png')
+        this.setState({
+          userEmoji: chick
+        })
+      }
+    }
+  }
+
+
   handleResetClick = (event) => {
-    this.sub.send({ array: [0,0,0,0,0,0,0,0,0], id: 1 })
+    this.sub.send({ array: ticTacToeReset, id: 1 })
   }
 
   //load and connect
   componentDidMount() {
     fetch('http://localhost:3001/games/1')
       .then(res => res.json())
-      .then(json => this.setState({
-        array: json.array
-      }))
+      .then(json => {
+
+        this.setState({array: json.array})
+      })
     const cable = ActionCable.createConsumer('ws://localhost:3001/cable')
     this.sub = cable.subscriptions.create('GamesChannel', {
       received: this.handleReceiveNewData
@@ -35,7 +94,6 @@ class App extends Component {
 
   // Set state with incoming data
   handleReceiveNewData = (data) => {
-    console.log(data)
     if (data.array !== this.state.array) {
       this.setState({
         array: data.array
@@ -49,7 +107,7 @@ class App extends Component {
     let newArr = this.state.array
     for (let i=0; i<newArr.length; i++){
       if (i === event.target.id-1) {//should add user control of spaces
-        newArr[i] = this.state.user /// '1' should be changed to USER ID
+        newArr[i] = {id: this.state.user_id, user_emoji: this.state.user_emoji} /// '1' should be changed to USER ID
       }
     }
     this.sub.send({ array: newArr, id: 1 })
@@ -86,7 +144,10 @@ class App extends Component {
     return (
       <Router>
          <Route exact path='/login' component={() => <Login handleLogin={this.handleLogin}/>}/>
-         <Route exact path='/tictactoe' component={() => <GameBoard handleResetClick={this.handleResetClick} array={this.state.array} clickHandle={this.clickHandle}/>}/>
+         <Route exact path='/tictactoe' component={() => <GameBoard handleResetClick={this.handleResetClick}
+                                                                    array={this.state.array}
+                                                                    clickHandle={this.clickHandle}
+                                                                    userEmoji={this.state.user_emoji} />}/>
       </Router>
     )
   }
