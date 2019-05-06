@@ -35,47 +35,11 @@ class App extends Component {
 
   }
 
-  // Let the user choose an emoji
-  setUserEmoji = (animal) => {
-    switch (animal) {
-      case 'pig': {
-        this.setState({
-          userEmoji: emojis[4]
-        })
-        break;
-      }
-      case 'cow': {
-        this.setState({
-          userEmoji: emojis[0]
-        })
-        break;
-      }
-      case 'horse': {
-        this.setState({
-          userEmoji: emojis[2]
-        })
-        break;
-      }
-      case 'mouse': {
-        this.setState({
-          userEmoji: emojis[3]
-        })
-        break;
-      }
-      case 'rooster': {
-        this.setState({
-          userEmoji: emojis[5]
-        })
-        break;
-      }
-      default: {
-        this.setState({
-          userEmoji: emojis[1]
-        })
-      }
-    }
+  setUserEmoji = (event) => {
+    this.setState({
+      user_emoji: emojis[event.target.id]
+    })
   }
-
 
   handleResetClick = (event) => {
     this.sub.send({ array: ticTacToeReset, id: 1 })
@@ -95,8 +59,6 @@ class App extends Component {
     })
   }
 
-
-
   // Set state with incoming data
   handleReceiveNewData = (data) => {
     if (data.array !== this.state.array) {
@@ -109,14 +71,12 @@ class App extends Component {
 
   // Handle gameboard click
   clickHandle = (event) => {
-    console.log(event.target.id)
     let newArr = this.state.array
     for (let i=0; i<newArr.length; i++){
       if (i === event.target.id-1) {//should add user control of spaces
         newArr[i] = {id: this.state.user_id, user_emoji: this.state.user_emoji} /// '1' should be changed to USER ID
       }
     }
-    console.log(newArr)
     this.sub.send({ array: newArr, id: 1 })
   }
 
@@ -139,14 +99,9 @@ class App extends Component {
       .then(resp => resp.json())
       .then(data =>
         this.setState({user_id: data.id, logged_in: true}))
-
   }
 
-
  //some form of user input for testing
-
-
-
 
   render() {
     return (
@@ -154,7 +109,8 @@ class App extends Component {
          <Route exact path='/login' component={() => <Login handleLogin={this.handleLogin}
                                                             logged_in={this.state.logged_in}
                                                             userEmoji={this.state.user_emoji}
-                                                            emojis={emojis}/>}/>
+                                                            emojis={emojis}
+                                                            handleEmojiChoice={this.setUserEmoji} />}/>
          <Route exact path='/tictactoe' component={() => <GameBoard handleResetClick={this.handleResetClick}
                                                                     array={this.state.array}
                                                                     clickHandle={this.clickHandle}

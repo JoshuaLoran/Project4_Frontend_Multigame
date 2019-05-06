@@ -32,7 +32,7 @@ export default class Login extends Component {
 
       <input type="submit" value="Submit" onClick={(e) => {this.props.handleLogin(e,this.state.name)}}/>
       </form>
-      <EmojiOptions userEmoji={this.state.user_emoji} emojis={this.props.emojis}/>
+      <EmojiOptions handleEmojiChoice={this.props.handleEmojiChoice} userEmoji={this.state.user_emoji} emojis={this.props.emojis}/>
     </div>)
   }
 }

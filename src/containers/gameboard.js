@@ -20,27 +20,27 @@ export default class GameBoard extends Component {
           <tr>
             {this.props.array.slice(0,3).map((element, idx) => {
               if (idx === 1){
-                return <BoardTile key={idx} idPass={idx + 1} onClick={this.props.clickHandle} classPass={this.state.classVert}/>
+                return <BoardTile tileInfo={element} key={idx} idPass={idx + 1} onClick={this.props.clickHandle} classPass={this.state.classVert}/>
               } else {
-                return <BoardTile key={idx} idPass={idx + 1}onClick={this.props.clickHandle} />
+                return <BoardTile tileInfo={element} key={idx} idPass={idx + 1}onClick={this.props.clickHandle} />
               }
             })}
           </tr>
           <tr>
             {this.props.array.slice(3,6).map((element, idx) => {
               if (idx === 1){
-                return <BoardTile key={idx} idPass={idx + 4} onClick={this.props.clickHandle} classPass={this.state.classVertHor}/>
+                return <BoardTile tileInfo={element} key={idx} idPass={idx + 4} onClick={this.props.clickHandle} classPass={this.state.classVertHor}/>
               } else {
-                return <BoardTile key={idx} idPass={idx + 4} classPass={this.state.classHori} onClick={this.props.clickHandle} />
+                return <BoardTile tileInfo={element} key={idx} idPass={idx + 4} classPass={this.state.classHori} onClick={this.props.clickHandle} />
               }
             })}
           </tr>
           <tr>
             {this.props.array.slice(6,9).map((element, idx) => {
               if (idx === 1){
-                return <BoardTile key={idx} idPass={idx + 7} onClick={this.props.clickHandle} classPass={this.state.classVert}/>
+                return <BoardTile tileInfo={element} key={idx} idPass={idx + 7} onClick={this.props.clickHandle} classPass={this.state.classVert}/>
               } else {
-                return <BoardTile key={idx} idPass={idx + 7} onClick={this.props.clickHandle} />
+                return <BoardTile tileInfo={element} key={idx} idPass={idx + 7} onClick={this.props.clickHandle} />
               }
             })}
           </tr>

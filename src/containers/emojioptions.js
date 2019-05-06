@@ -6,11 +6,11 @@ export default class EmojiOptions extends Component {
 render(){
 
   return(
-    <div>
-      {this.props.emojis.map(emoji => {
-        return <img src={emoji}></img>
+    <Fragment>
+      {this.props.emojis.map((emoji, idx) => {
+        return <img onClick={this.props.handleEmojiChoice} key={idx} id={idx} src={emoji} alt="BrokeAF"></img>
       })}
-    </div>
+    </Fragment>
   )
 }
 }
