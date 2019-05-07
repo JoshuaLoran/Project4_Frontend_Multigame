@@ -1,11 +1,13 @@
 html {
   height: 100%;
+
 }
 
 body {
   height: 100%;
   text-align: center;
   padding-top: 30px;
+  font-family: 'Josefin Sans', sans-serif;
 }
 
 .tictactoepg{

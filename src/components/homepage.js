@@ -5,7 +5,10 @@ import EmojiOptions from '../containers/emojioptions'
 export default class Homepage extends Component {
 
   render(){
-    //
+
+    if(this.props.logged_in === false){
+      return <Redirect to='/login'/>
+    }
     // const newGame = this.state.newGame
     //
     if(this.props.newGame === 'tictactoe'){
@@ -17,6 +20,7 @@ export default class Homepage extends Component {
           <EmojiOptions handleEmojiChoice={this.props.handleEmojiChoice}
                         userEmoji={this.props.userEmoji}
                         emojis={this.props.emojis}/>
+            <button onClick={this.props.handleLogOut}> log out </button>
       </div>
     )
   }

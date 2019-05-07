@@ -167,6 +167,16 @@ class App extends Component {
       })
   }
 
+  handleLogOut = () => {
+    console.log('inside handle logout')
+    this.setState({
+      user_id: 0,
+      user_name: undefined,
+      user_emoji: "",
+      logged_in: false
+    })
+  }
+
  //some form of user input for testing
 
   render() {
@@ -185,7 +195,10 @@ class App extends Component {
                                                                    newGame={this.state.new_game}
                                                                    handleEmojiChoice={this.setUserEmoji}
                                                                    user_id={this.state.user_id}
-                                                                   user_name={this.state.user_name} />}/>
+                                                                   user_name={this.state.user_name}
+                                                                   logged_in={this.state.logged_in}
+                                                                   handleLogOut={this.handleLogOut} />}/>
+
       </Router>
     )
   }
