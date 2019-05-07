@@ -5,9 +5,13 @@ html {
 
 body {
   height: 100%;
+  width: 100%;
   text-align: center;
   padding-top: 30px;
   font-family: 'Josefin Sans', sans-serif;
+  background-image: url('./images/farm.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .tictactoepg{
@@ -15,9 +19,14 @@ body {
   margin: auto;
 }
 
-h1 {
+.gameboarddiv{
   text-align: center;
 }
+
+.table{
+  display: inline-block;
+}
+
 td {
   width: 100px;
   height: 100px;

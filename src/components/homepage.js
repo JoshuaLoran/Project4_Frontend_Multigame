@@ -9,8 +9,6 @@ export default class Homepage extends Component {
     if(this.props.logged_in === false){
       return <Redirect to='/login'/>
     }
-    // const newGame = this.state.newGame
-    //
     if(this.props.newGame === 'tictactoe'){
       return <Redirect to='/tictactoe'/>
     }
