@@ -14,7 +14,7 @@ export default class Homepage extends Component {
     return (
       <div> <h2> Welcome {this.props.user_name} </h2>
           <button onClick={this.props.handleResetClick}> new tic tac toe game </button>
-          <EmojiOptions handleEmojiChoice={this.props.handleEmojiChoice} userEmoji={this.state.user_emoji} emojis={this.props.emojis}/>
+          <EmojiOptions handleEmojiChoice={this.props.handleEmojiChoice} userEmoji={this.props.userEmoji} emojis={this.props.emojis}/>
       </div>
     )
   }
