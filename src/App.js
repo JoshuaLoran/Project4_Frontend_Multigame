@@ -116,7 +116,6 @@ class App extends Component {
   getProfile = () => { //get profile of user
     let token = this.getToken()
     console.log(token)
-
     fetch('http://localhost:3001/profile', {
       headers: {
         'Authorization': 'Bearer ' + token
@@ -126,22 +125,20 @@ class App extends Component {
       .then(data => {
         console.log('profile', data)
         if(data.message){
-          alert('line 129')
+          alert('line 129') //replace with data.message - could potentially delete this line
         } else {
           this.setState({user_id: data.user.id, user_name: data.user.name, logged_in: true})
         }
-
       })
   }
 
   getToken(){
     let token = localStorage.getItem('jwt')
-    return token
+    return token //keep redundancy - was giving error without explicit
   }
 
   saveToken(jwt){
     return localStorage.setItem('jwt', jwt)
-
   }
 
   handleLogin = (e, name, pw) => {
@@ -181,8 +178,8 @@ class App extends Component {
                                                                     clickHandle={this.clickHandle}
                                                                     userEmoji={this.state.user_emoji}
                                                                     farm={emojis[6]} />}/>
-           <Route exact path='/homepage' component={() => <Homepage user_id={this.state.user_id}
-                                                                    user_name={this.state.user_name}/>} />
+         <Route exact path='/homepage' component={() => <Homepage user_id={this.state.user_id}
+                                                                  user_name={this.state.user_name}/>} />
       </Router>
     )
   }
