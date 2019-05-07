@@ -16,9 +16,9 @@ export default class GameBoard extends Component {
   render(){
     return(
       <div>
+        <div className='gameboarddiv'>
         <h1>Tic Tac Toe</h1>
-        <button onClick={this.props.handleResetClick}>New game</button>
-          <tbody>
+          <tbody className='table'>
             <tr>
               {this.props.array.slice(0,3).map((element, idx) => {
                 if (idx === 1){
@@ -46,7 +46,9 @@ export default class GameBoard extends Component {
                 }
               })}
             </tr>
-          </tbody>
+          </tbody><br></br><br></br><br></br><br></br>
+          <button onClick={this.props.handleResetClick}>New game</button>
+          </div>
         </div>
     )
   }

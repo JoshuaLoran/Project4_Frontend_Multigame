@@ -5,9 +5,7 @@ import EmojiOptions from '../containers/emojioptions'
 export default class Homepage extends Component {
 
   render(){
-    //
-    // const newGame = this.state.newGame
-    //
+
     if(this.props.newGame === 'tictactoe'){
       return <Redirect to='/tictactoe'/>
     }
