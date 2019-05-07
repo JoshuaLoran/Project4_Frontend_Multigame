@@ -3,9 +3,11 @@ import React, { Component } from 'react'
 import './App.css'
 import ActionCable from 'actioncable'
 import {BrowserRouter as Router, Route} from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 import GameBoard from './containers/gameboard'
 import Login from './components/login'
 import Homepage from './components/homepage'
+import Createaccount from './components/createaccount'
 import Cow from './images/cow.png'
 import Chick from './images/chick.png'
 import Horse from './images/horse.png'
@@ -13,7 +15,6 @@ import Mouse from './images/mouse.png'
 import Pig from './images/pig.png'
 import Rooster from './images/rooster.png'
 import Farm from './images/farm.jpg'
-
 
 // Some vars that shouldn't be state
 const emojis = [Cow, Chick, Horse, Mouse, Pig, Rooster, Farm]
@@ -76,8 +77,7 @@ class App extends Component {
     fetch('http://localhost:3001/games/1')
       .then(res => res.json())
       .then(json => {
-
-        this.setState({array: json.array})
+        // this.setState({array: json.array})
       })
     const cable = ActionCable.createConsumer('ws://localhost:3001/cable')
     this.sub = cable.subscriptions.create('GamesChannel', {
@@ -87,6 +87,7 @@ class App extends Component {
 
   // Set state with incoming data
   handleReceiveNewData = (data) => {
+    console.log(data.array)
     if (data.array !== this.state.array) {
       this.setState({
         array: data.array
@@ -162,6 +163,22 @@ class App extends Component {
       })
   }
 
+  createAccount = (e, name, pw) => {
+    e.preventDefault()
+    let url = 'http://localhost:3001/users'
+    let config = {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({name: name, password: pw})
+    }
+    fetch(url, config)
+      .then(resp => resp.json())
+      .then(data => {
+        console.log(data)
+        this.setState({user_id: data.user.id, user_name: data.user.name, logged_in: true})
+      })
+  }
+
  //some form of user input for testing
 
   render() {
@@ -169,17 +186,19 @@ class App extends Component {
       <Router>
 
          <Route exact path='/login' component={() => <Login handleLogin={this.handleLogin}
-                                                            logged_in={this.state.logged_in}
-                                                            userEmoji={this.state.user_emoji}
-                                                            emojis={emojis}
-                                                            handleEmojiChoice={this.setUserEmoji} />}/>
+                                                            logged_in={this.state.logged_in} />}/>
          <Route exact path='/tictactoe' component={() => <GameBoard handleResetClick={this.handleResetClick}
                                                                     array={this.state.array}
                                                                     clickHandle={this.clickHandle}
-                                                                    userEmoji={this.state.user_emoji}
-                                                                    farm={emojis[6]} />}/>
-         <Route exact path='/homepage' component={() => <Homepage user_id={this.state.user_id}
-                                                                  user_name={this.state.user_name}/>} />
+                                                                    userEmoji={this.state.user_emoji} />}/>
+          <Route exact path='/homepage' component={() => <Homepage handleResetClick={this.handleResetClick}
+                                                                   userEmoji={this.state.user_emoji}
+                                                                   emojis={emojis}
+                                                                   handleEmojiChoice={this.setUserEmoji}
+                                                                   user_id={this.state.user_id}
+                                                                   user_name={this.state.user_name} />}/>
+          <Route exact path ='/createaccount' component={() => <Createaccount createAccount={this.createAccount}
+                                                                  logged_in={this.state.logged_in}/>}/>
       </Router>
     )
   }

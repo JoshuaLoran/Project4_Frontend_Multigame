@@ -10,7 +10,7 @@ render(){
       {/* iterate over emojis mapping interactions */}
       {this.props.emojis.map((emoji, idx) => {
         if (idx === 6){
-          return
+          return null
         }
         return <img onClick={this.props.handleEmojiChoice} key={idx} id={idx} src={emoji} alt="BrokeAF"></img>
       })}

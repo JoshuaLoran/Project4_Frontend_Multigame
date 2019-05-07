@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Redirect } from 'react-router-dom'
+import EmojiOptions from '../containers/emojioptions'
 
 export default class Homepage extends Component {
 
@@ -13,7 +13,9 @@ export default class Homepage extends Component {
     // }
     return (
       <div> <h2> Welcome {this.props.user_name} </h2>
-          <button> new tic tac toe game </button>
+          <button onClick={this.props.handleResetClick}> new tic tac toe game </button>
+          <EmojiOptions handleEmojiChoice={this.props.handleEmojiChoice} userEmoji={this.props.userEmoji} emojis={this.props.emojis}/>
+          <button> log out </button>
       </div>
     )
   }
