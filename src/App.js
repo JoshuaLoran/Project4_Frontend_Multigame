@@ -4,6 +4,7 @@ import ActionCable from 'actioncable'
 import {BrowserRouter as Router, Route} from 'react-router-dom'
 import GameBoard from './containers/gameboard'
 import Login from './components/login'
+import Homepage from './components/homepage'
 
 class App extends Component {
 
@@ -67,8 +68,28 @@ class App extends Component {
     this.sub.send({ array: e.target.value.split(''), id: 1 })
   }
 
-  handleLogin = (e, name, pw) => {
+  getProfile = () => { //get profile of user
+    let token = this.getToken()
+    fetch('http://localhost:3001/profile', {
+      headers: {
+        'Authorization': 'Bearer ' + token
+      }
+    })
+      .then(resp => resp.json())
+      .then(data => {
+        console.log('profile', data)
+      })
+  }
 
+  getToken(jwt){
+    return localStorage.getItem('jwt')
+  }
+
+  saveToken(jwt){
+    localStorage.setItem('jwt', jwt)
+  }
+
+  handleLogin = (e, name, pw) => {
     e.preventDefault()
     let url = 'http://localhost:3001/login'
     let config = {
@@ -76,15 +97,16 @@ class App extends Component {
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({name: name, password: pw})
     }
-
     fetch(url, config)
       .then(resp => resp.json())
-
       .then( data => {
-
         console.log(data)
+
+        this.saveToken(data.jwt)
+        this.getProfile()
+        this.setState({user_id: data.user.id, logged_in: true})
+
       })
-        //this.setState({user_id: data.id, logged_in: true}))
 
   }
 
@@ -98,6 +120,7 @@ class App extends Component {
     return (
       <Router>
          <Route exact path='/login' component={() => <Login handleLogin={this.handleLogin} logged_in={this.state.logged_in}/>}/>
+         <Route exact path='/homepage' component={Homepage} />
          <Route exact path='/tictactoe' component={() => <GameBoard handleResetClick={this.handleResetClick} array={this.state.array} clickHandle={this.clickHandle}/>}/>
 
       </Router>

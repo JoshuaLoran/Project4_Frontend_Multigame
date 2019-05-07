@@ -21,7 +21,7 @@ export default class Login extends Component {
     const loggedIn = this.props.logged_in
 
     if(loggedIn === true){
-      return <Redirect to='/tictactoe'/>
+      return <Redirect to='/homepage'/>
     }
     return (
 
