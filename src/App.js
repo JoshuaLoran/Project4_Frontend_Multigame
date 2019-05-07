@@ -11,9 +11,11 @@ import Horse from './images/horse.png'
 import Mouse from './images/mouse.png'
 import Pig from './images/pig.png'
 import Rooster from './images/rooster.png'
+import Farm from './images/farm.jpg'
+
 
 // Some vars that shouldn't be state
-const emojis = [Cow, Chick, Horse, Mouse, Pig, Rooster]
+const emojis = [Cow, Chick, Horse, Mouse, Pig, Rooster, Farm]
 const ticTacToeReset = [{id: 0, user_emoji: ''},
                         {id: 0, user_emoji: ''},
                         {id: 0, user_emoji: ''},
@@ -35,11 +37,34 @@ class App extends Component {
     user_emoji: emojis[0],
     opponent_emoji: '',
     logged_in: false,
+    winner: 0
   }
 
   // Reset game with fresh data
   handleResetClick = (event) => {
     this.sub.send({ array: ticTacToeReset, id: 1 })
+  }
+// Write game conditionals for gameplay and winner
+  ticTacToeCheck(){
+    if(this.state.array[0] === this.state.array[1] && this.state.array[0] === this.state.array[2]){
+      this.setState({winner: this.state.array[0].id})
+    } else if (this.state.array[3] === this.state.array[4] && this.state.array[5] === this.state.array[3]){
+      this.setState({winner: this.state.array[3].id})
+    } else if (this.state.array[6] === this.state.array[7] && this.state.array[8] === this.state.array[6]){
+      this.setState({winner: this.state.array[6].id})
+    } else if (this.state.array[0] === this.state.array[3] && this.state.array[6] === this.state.array[0]){
+      this.setState({winner: this.state.array[0].id})
+    } else if (this.state.array[1] === this.state.array[4] && this.state.array[7] === this.state.array[1]){
+      this.setState({winner: this.state.array[1].id})
+    } else if (this.state.array[2] === this.state.array[5] && this.state.array[8] === this.state.array[2]){
+      this.setState({winner: this.state.array[2].id})
+    } else if (this.state.array[0] === this.state.array[4] && this.state.array[8] === this.state.array[0]){
+      this.setState({winner: this.state.array[0].id})
+    } else if (this.state.array[2] === this.state.array[4] && this.state.array[6] === this.state.array[2]){
+      this.setState({winner: this.state.array[2].id})
+    } else {
+      return 'Nope'
+    }
   }
 
   //load and connect
@@ -81,6 +106,7 @@ class App extends Component {
       }
     }
     this.sub.send({ array: newArr, id: 1 })
+    // console.log(this.ticTacToeCheck())
   }
 
   handleLogin = (e, name) => {
@@ -112,7 +138,8 @@ class App extends Component {
          <Route exact path='/tictactoe' component={() => <GameBoard handleResetClick={this.handleResetClick}
                                                                     array={this.state.array}
                                                                     clickHandle={this.clickHandle}
-                                                                    userEmoji={this.state.user_emoji} />}/>
+                                                                    userEmoji={this.state.user_emoji}
+                                                                    farm={emojis[6]} />}/>
       </Router>
     )
   }

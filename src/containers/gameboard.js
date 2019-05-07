@@ -1,5 +1,5 @@
 // imports
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import BoardTile from '../components/boardtile.js'
 
 // class workings and export
@@ -15,10 +15,9 @@ export default class GameBoard extends Component {
   // Render the gameboard by mapping the game array and it's interactions over the board
   render(){
     return(
-      <Fragment>
+      <div>
         <h1>Tic Tac Toe</h1>
         <button onClick={this.props.handleResetClick}>New game</button>
-        <div className="tictactoepg">
           <tbody>
             <tr>
               {this.props.array.slice(0,3).map((element, idx) => {
@@ -49,7 +48,6 @@ export default class GameBoard extends Component {
             </tr>
           </tbody>
         </div>
-      </Fragment>
     )
   }
 }
