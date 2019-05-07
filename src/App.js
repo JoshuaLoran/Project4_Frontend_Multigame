@@ -3,7 +3,6 @@ import React, { Component } from 'react'
 import './App.css'
 import ActionCable from 'actioncable'
 import {BrowserRouter as Router, Route} from 'react-router-dom'
-import { Redirect } from 'react-router-dom'
 import GameBoard from './containers/gameboard'
 import Login from './components/login'
 import Homepage from './components/homepage'
@@ -40,37 +39,47 @@ class App extends Component {
     user_emoji: emojis[0],
     opponent_emoji: '',
     logged_in: false,
-    winner: 0
+    winner: 0,
+    new_game: ''
   }
 
 
   // Reset game with fresh data
   handleResetClick = (event) => {
     this.sub.send({ array: ticTacToeReset, id: 1 })
-  }
-// Write game conditionals for gameplay and winner
-  ticTacToeCheck(){
-    if(this.state.array[0] === this.state.array[1] && this.state.array[0] === this.state.array[2]){
-      this.setState({winner: this.state.array[0].id})
-    } else if (this.state.array[3] === this.state.array[4] && this.state.array[5] === this.state.array[3]){
-      this.setState({winner: this.state.array[3].id})
-    } else if (this.state.array[6] === this.state.array[7] && this.state.array[8] === this.state.array[6]){
-      this.setState({winner: this.state.array[6].id})
-    } else if (this.state.array[0] === this.state.array[3] && this.state.array[6] === this.state.array[0]){
-      this.setState({winner: this.state.array[0].id})
-    } else if (this.state.array[1] === this.state.array[4] && this.state.array[7] === this.state.array[1]){
-      this.setState({winner: this.state.array[1].id})
-    } else if (this.state.array[2] === this.state.array[5] && this.state.array[8] === this.state.array[2]){
-      this.setState({winner: this.state.array[2].id})
-    } else if (this.state.array[0] === this.state.array[4] && this.state.array[8] === this.state.array[0]){
-      this.setState({winner: this.state.array[0].id})
-    } else if (this.state.array[2] === this.state.array[4] && this.state.array[6] === this.state.array[2]){
-      this.setState({winner: this.state.array[2].id})
-    } else {
-      return 'Nope'
-    }
+    this.setState({
+      new_game: 'tictactoe'
+    })
   }
 
+  ticTacToeCheckTwo(){
+    let row1 = this.state.array.slice(0, 3)
+    let row2 = this.state.array.slice(3, 6)
+    let row3 = this.state.array.slice(6, 9)
+    let col1 = [this.state.array[0], this.state.array[3], this.state.array[6]]
+    let col2 = [this.state.array[1], this.state.array[4], this.state.array[7]]
+    let col3 = [this.state.array[2], this.state.array[5], this.state.array[8]]
+    let dia1 = [this.state.array[0], this.state.array[4], this.state.array[8]]
+    let dia2 = [this.state.array[2], this.state.array[4], this.state.array[6]]
+
+    console.log('row1:', row1)
+    console.log('row2:', row2)
+    console.log('row3:', row3)
+    console.log('col1:', col1)
+    console.log('col2:', col2)
+    console.log('col3:', col3)
+    console.log('dia1:', dia1)
+    console.log('dia2:', dia2)
+    console.log(this.checkarr(row1))
+  }
+
+
+// Write game conditionals for gameplay and winner
+  checkarr(arr){
+    // if(arr.unique.length() === 1 && arr.unique[0].id !== 0){
+    //   return true
+    // }
+  }
   //load and connect
   componentDidMount() {
     fetch('http://localhost:3001/games/1')
@@ -86,7 +95,6 @@ class App extends Component {
 
   // Set state with incoming data
   handleReceiveNewData = (data) => {
-    console.log(data.array)
     if (data.array !== this.state.array) {
       this.setState({
         array: data.array
@@ -110,13 +118,11 @@ class App extends Component {
       }
     }
     this.sub.send({ array: newArr, id: 1 })
-    // console.log(this.ticTacToeCheck())
+    this.ticTacToeCheckTwo()
   }
 
   getProfile = () => { //get profile of user
     let token = this.getToken()
-    console.log(token)
-
     fetch('http://localhost:3001/profile', {
       headers: {
         'Authorization': 'Bearer ' + token
@@ -124,13 +130,11 @@ class App extends Component {
     })
       .then(resp => resp.json())
       .then(data => {
-        console.log('profile', data)
         if(data.message){
           alert('line 129')
         } else {
           this.setState({user_id: data.user.id, user_name: data.user.name, logged_in: true})
         }
-
       })
   }
 
@@ -141,7 +145,6 @@ class App extends Component {
 
   saveToken(jwt){
     return localStorage.setItem('jwt', jwt)
-
   }
 
   handleLogin = (e, name, pw) => {
@@ -158,7 +161,6 @@ class App extends Component {
         if(data.message){
           alert(data.message)
         } else {
-          console.log(data)
           this.saveToken(data.jwt)
           this.getProfile()
         }
@@ -180,6 +182,7 @@ class App extends Component {
           <Route exact path='/homepage' component={() => <Homepage handleResetClick={this.handleResetClick}
                                                                    userEmoji={this.state.user_emoji}
                                                                    emojis={emojis}
+                                                                   newGame={this.state.new_game}
                                                                    handleEmojiChoice={this.setUserEmoji}
                                                                    user_id={this.state.user_id}
                                                                    user_name={this.state.user_name} />}/>
