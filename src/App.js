@@ -31,10 +31,12 @@ const ticTacToeReset = [{id: 0, user_emoji: ''},
 // The class and it's workings
 class App extends Component {
 
+
   // Setup a gameboard
   state = {
     array: ticTacToeReset,
     user_id: 0,
+    user_name: undefined,
     user_emoji: emojis[0],
     opponent_emoji: '',
     logged_in: false,
@@ -113,6 +115,8 @@ class App extends Component {
 
   getProfile = () => { //get profile of user
     let token = this.getToken()
+    console.log(token)
+
     fetch('http://localhost:3001/profile', {
       headers: {
         'Authorization': 'Bearer ' + token
@@ -121,15 +125,23 @@ class App extends Component {
       .then(resp => resp.json())
       .then(data => {
         console.log('profile', data)
+        if(data.message){
+          alert('line 129')
+        } else {
+          this.setState({user_id: data.user.id, user_name: data.user.name, logged_in: true})
+        }
+
       })
   }
 
-  getToken(jwt){
-    return localStorage.getItem('jwt')
+  getToken(){
+    let token = localStorage.getItem('jwt')
+    return token
   }
 
   saveToken(jwt){
-    localStorage.setItem('jwt', jwt)
+    return localStorage.setItem('jwt', jwt)
+
   }
 
   handleLogin = (e, name, pw) => {
@@ -143,14 +155,14 @@ class App extends Component {
     fetch(url, config)
       .then(resp => resp.json())
       .then( data => {
-        console.log(data)
-
-        this.saveToken(data.jwt)
-        this.getProfile()
-        this.setState({user_id: data.user.id, logged_in: true})
-
+        if(data.message){
+          alert(data.message)
+        } else {
+          console.log(data)
+          this.saveToken(data.jwt)
+          this.getProfile()
+        }
       })
-
   }
 
  //some form of user input for testing
@@ -168,7 +180,9 @@ class App extends Component {
           <Route exact path='/homepage' component={() => <Homepage handleResetClick={this.handleResetClick}
                                                                    userEmoji={this.state.user_emoji}
                                                                    emojis={emojis}
-                                                                   handleEmojiChoice={this.setUserEmoji} />}/>
+                                                                   handleEmojiChoice={this.setUserEmoji}
+                                                                   user_id={this.state.user_id}
+                                                                   user_name={this.state.user_name} />}/>
       </Router>
     )
   }
