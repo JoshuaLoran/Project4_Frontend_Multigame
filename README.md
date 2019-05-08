@@ -9,7 +9,7 @@
 
 ## Project FAQ
 #### 1. What is Farm Frenzy?
-Farm Frenzy is an online gaming platform. Players can sign in and play live games against other users. 
+Farm Frenzy is an online gaming platform. Players can sign in and play live games against other users. As of 5/8/19 the only game option is tic tac toe. In the future we hope to add various options such as Minesweeper, Connect 4, Simon and Trivia.
 
 #### 2. How does it work?
 After creating an account, users can select a game to play as well as their desired icon for that game.  Users will be matched with another player who has selected the same game.  Games will be updated in real time on each player's screen. 
@@ -30,4 +30,5 @@ This project is hosted on Heroku and can be accessed here:
 [Backend Repository](https://github.com/WTFCodingPotato/Project4_Backend_Multigame)
 
 ## Database Schema Diagram
+As of 5/8/19 the User_Games table is not utilized. As soon as multiple games are offered within Farm Frenzy, this table will be used to store the user/games relationships.
 ![Database Diagram](https://github.com/WTFCodingPotato/Project4_Frontend_Multigame/blob/master/Screen%20Shot%202019-05-08%20at%204.13.53%20PM.png)
