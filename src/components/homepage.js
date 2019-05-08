@@ -12,6 +12,9 @@ export default class Homepage extends Component {
 
   render(){
 
+
+    this.props.changeNewGameState()
+  
     if(this.props.logged_in === false){
       return <Redirect to='/'/>
     }

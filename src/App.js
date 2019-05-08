@@ -45,6 +45,12 @@ class App extends Component {
     new_game: ''
   }
 
+  changeNewGameState = () => {
+    if (this.state.new_game === 'tictactoe') {
+      this.setState({new_game: ""})
+    }
+  }
+
 
   // Reset game with fresh data
   handleResetClick = (event) => {
@@ -170,7 +176,6 @@ class App extends Component {
 
 
  handleLogOut = () => {
-   console.log('inside handle logout')
    this.setState({
      user_id: 0,
      user_name: undefined,
@@ -192,7 +197,11 @@ class App extends Component {
       .then(resp => resp.json())
       .then(data => {
         console.log(data)
-        this.setState({user_id: data.user.id, user_name: data.user.name, logged_in: true})
+        if(data.error){
+          alert(data.error)
+        } else {
+          this.setState({user_id: data.user.id, user_name: data.user.name, logged_in: true})
+        }
       })
   }
 
@@ -207,7 +216,9 @@ class App extends Component {
          <Route exact path='/tictactoe' component={() => <GameBoard handleResetClick={this.handleResetClick}
                                                                     array={this.state.array}
                                                                     clickHandle={this.clickHandle}
-                                                                    userEmoji={this.state.user_emoji} />}/>
+                                                                    userEmoji={this.state.user_emoji}
+                                                                    newGame={this.state.new_game}
+                                                                    changeNewGameState={this.changeNewGameState}/>}/>
           <Route exact path='/homepage' component={() => <Homepage handleResetClick={this.handleResetClick}
                                                                    userEmoji={this.state.user_emoji}
                                                                    emojis={emojis}
@@ -217,7 +228,8 @@ class App extends Component {
                                                                    user_id={this.state.user_id}
                                                                    user_name={this.state.user_name}
                                                                    logged_in={this.state.logged_in}
-                                                                   handleLogOut={this.handleLogOut} />}/>
+                                                                   handleLogOut={this.handleLogOut}
+                                                                   changeNewGameState={this.changeNewGameState}/>}/>
           <Route exact path ='/createaccount' component={() => <Createaccount createAccount={this.createAccount}
                                                                   logged_in={this.state.logged_in}/>}/>
       </Router>

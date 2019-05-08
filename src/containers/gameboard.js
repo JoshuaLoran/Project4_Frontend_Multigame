@@ -11,17 +11,17 @@ export default class GameBoard extends Component {
       classVert: "vert",
       classHori: "hori",
       classVertHor: "vert hori",
-      homePage: false,
+      homepage: false
     }
   }
 
-  redirectToHomepage = () => {
-    this.setState({homePage: true})
+  onClickRedirect = () => {
+    this.setState({ homepage: true })
   }
+
   // Render the gameboard by mapping the game array and it's interactions over the board
   render(){
-    const homePage = this.state.homePage
-    if(homePage === true){
+    if(this.state.homepage === true){
       return <Redirect to='/homepage'/>
     }
     return(
@@ -59,7 +59,7 @@ export default class GameBoard extends Component {
           </tbody><br></br><br></br><br></br><br></br>
 
         <button className="btn btn-success btn-lg btn3d" onClick={this.props.handleResetClick}> new game</button>
-        <button className="btn btn-success btn-lg btn3d upprbtn" onClick={this.redirectToHomepage}> homepage</button>
+        <button className="btn btn-success btn-lg btn3d upprbtn" onClick={this.onClickRedirect}> homepage</button>
           </div>
         </div>
     )
