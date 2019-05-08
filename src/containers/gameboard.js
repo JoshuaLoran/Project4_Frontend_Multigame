@@ -47,7 +47,7 @@ export default class GameBoard extends Component {
               })}
             </tr>
           </tbody><br></br><br></br><br></br><br></br>
-          <button onClick={this.props.handleResetClick}>New game</button>
+        <img src={this.props.newgame} width="200" onClick={this.props.handleResetClick} alt="New Game"></img>
           </div>
         </div>
     )

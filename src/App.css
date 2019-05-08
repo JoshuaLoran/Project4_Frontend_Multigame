@@ -7,6 +7,7 @@ body {
   height: 100%;
   width: 100%;
   text-align: center;
+  color: white;
   padding-top: 30px;
   font-family: 'Josefin Sans', sans-serif;
   background-image: url('./images/farm.jpg');
@@ -17,6 +18,19 @@ body {
 .tictactoepg{
   height: 400px;
   margin: auto;
+}
+
+.newgame{
+  height: 10%;
+}
+
+.emojioptions{
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.submit{
+  margin-top: 30px;
 }
 
 .gameboarddiv{
@@ -35,10 +49,12 @@ td {
 .vert {
   border-left: 2px solid black;
   border-right: 2px solid black;
+  border-color: white;
 }
 .hori {
   border-top: 2px solid black;
   border-bottom: 2px solid black;
+  border-color: white;
 }
 
 form {

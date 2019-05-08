@@ -13,11 +13,13 @@ export default class Homepage extends Component {
       return <Redirect to='/tictactoe'/>
     }
     return (
-      <div> <h2> Welcome {this.props.user_name} <button onClick={this.props.handleResetClick}> new tic tac toe game </button></h2>
+      <div> <h2> Welcome {this.props.user_name}</h2><br></br>
+      <button onClick={this.props.handleResetClick}> new tic tac toe game </button><br></br><br></br>
 
-          <EmojiOptions handleEmojiChoice={this.props.handleEmojiChoice}
+          <EmojiOptions className="emojiOptions"
+                        handleEmojiChoice={this.props.handleEmojiChoice}
                         userEmoji={this.props.userEmoji}
-                        emojis={this.props.emojis}/>
+                        emojis={this.props.emojis}/><br></br><br></br>
             <button onClick={this.props.handleLogOut}> log out </button>
       </div>
     )

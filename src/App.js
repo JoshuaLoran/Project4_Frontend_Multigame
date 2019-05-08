@@ -12,10 +12,10 @@ import Horse from './images/horse.png'
 import Mouse from './images/mouse.png'
 import Pig from './images/pig.png'
 import Rooster from './images/rooster.png'
-import Farm from './images/farm.jpg'
+import NewGame from './images/newGame.png'
 
 // Some vars that shouldn't be state
-const emojis = [Cow, Chick, Horse, Mouse, Pig, Rooster, Farm]
+const emojis = [Cow, Chick, Horse, Mouse, Pig, Rooster, NewGame]
 const ticTacToeReset = [{id: 0, user_emoji: ''},
                         {id: 0, user_emoji: ''},
                         {id: 0, user_emoji: ''},
@@ -46,10 +46,11 @@ class App extends Component {
 
   // Reset game with fresh data
   handleResetClick = (event) => {
-    this.sub.send({ array: ticTacToeReset, id: 1 })
     this.setState({
-      new_game: 'tictactoe'
+      new_game: 'tictactoe',
+      winner: 0
     })
+    this.sub.send({ array: ticTacToeReset, id: 1, winner: 0 })
   }
 
   ticTacToeCheckTwo(){
@@ -61,24 +62,22 @@ class App extends Component {
     let col3 = [this.state.array[2], this.state.array[5], this.state.array[8]]
     let dia1 = [this.state.array[0], this.state.array[4], this.state.array[8]]
     let dia2 = [this.state.array[2], this.state.array[4], this.state.array[6]]
-
-    console.log('row1:', row1)
-    console.log('row2:', row2)
-    console.log('row3:', row3)
-    console.log('col1:', col1)
-    console.log('col2:', col2)
-    console.log('col3:', col3)
-    console.log('dia1:', dia1)
-    console.log('dia2:', dia2)
-    console.log(this.checkarr(row1))
+    let bArr = [row1, row2, row3, col1, col2, col3, dia1, dia2]
+    bArr.forEach(element => {
+      this.checkarr(element)
+    })
   }
-
 
 // Write game conditionals for gameplay and winner
   checkarr(arr){
-    // if(arr.unique.length() === 1 && arr.unique[0].id !== 0){
-    //   return true
-    // }
+    if(arr[0].id !== 0 && arr[1].id !== 0 && arr[2].id !== 0){
+      if(arr[0].id === arr[1].id && arr[0].id === arr[2].id){
+        this.sub.send({winner: arr[0].id})
+        this.setState({
+          winner: arr[0].id
+        })
+      }
+    }
   }
   //load and connect
   componentDidMount() {
@@ -95,6 +94,7 @@ class App extends Component {
 
   // Set state with incoming data
   handleReceiveNewData = (data) => {
+    console.log(data)
     if (data.array !== this.state.array) {
       this.setState({
         array: data.array
@@ -117,7 +117,7 @@ class App extends Component {
         newArr[i] = {id: this.state.user_id, user_emoji: this.state.user_emoji}
       }
     }
-    this.sub.send({ array: newArr, id: 1 })
+    this.sub.send({ array: newArr, id: 1, winner: this.state.winner})
     this.ticTacToeCheckTwo()
   }
 
@@ -177,7 +177,7 @@ class App extends Component {
     })
   }
 
- //some form of user input for testing
+ // Routes and components
 
   render() {
     return (
@@ -188,7 +188,9 @@ class App extends Component {
          <Route exact path='/tictactoe' component={() => <GameBoard handleResetClick={this.handleResetClick}
                                                                     array={this.state.array}
                                                                     clickHandle={this.clickHandle}
-                                                                    userEmoji={this.state.user_emoji} />}/>
+                                                                    userEmoji={this.state.user_emoji}
+                                                                    newgame={emojis[6]} />}/>
+
           <Route exact path='/homepage' component={() => <Homepage handleResetClick={this.handleResetClick}
                                                                    userEmoji={this.state.user_emoji}
                                                                    emojis={emojis}

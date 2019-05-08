@@ -14,7 +14,5 @@ export default class BoardTile extends Component {
      <img src={this.props.tileInfo.user_emoji} alt=''></img>
       </td>
     )
-
-
   }
 }
