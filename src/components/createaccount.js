@@ -17,16 +17,16 @@ export default class Createaccount extends Component {
 
   render (){
     const loggedIn = this.props.logged_in
-  
+
     if(loggedIn === true){
       return <Redirect to='/homepage'/>
     }
     return (
       <div>
-      <h2> create account </h2>
+      <h2> Create New Account </h2>
       <input type="text" placeholder="username"  name="name" onChange={this.handleChange}/> <br/>
-      <input type="password" placeholder="password" name="pw"  onChange={this.handleChange} required/> <br/>
-      <input type="submit" value="create new account" onClick={(e) => {this.props.createAccount(e,this.state.name, this.state.pw)}} /> <br/>
+      <input className="pwfield" type="password" placeholder="password" name="pw"  onChange={this.handleChange} required/> <br/>
+      <input className="btn btn-success btn-lg btn3d" type="submit" value="create account" onClick={(e) => {this.props.createAccount(e,this.state.name, this.state.pw)}} /> <br/>
       </div>
     )
   }

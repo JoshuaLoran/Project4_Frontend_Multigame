@@ -1,5 +1,6 @@
 // imports
 import React, { Component } from 'react'
+import { Redirect } from 'react-router-dom'
 import BoardTile from '../components/boardtile.js'
 
 // class workings and export
@@ -10,10 +11,19 @@ export default class GameBoard extends Component {
       classVert: "vert",
       classHori: "hori",
       classVertHor: "vert hori",
+      homePage: false,
     }
+  }
+
+  redirectToHomepage = () => {
+    this.setState({homePage: true})
   }
   // Render the gameboard by mapping the game array and it's interactions over the board
   render(){
+    const homePage = this.state.homePage
+    if(homePage === true){
+      return <Redirect to='/homepage'/>
+    }
     return(
       <div>
         <div className='gameboarddiv'>
@@ -47,7 +57,9 @@ export default class GameBoard extends Component {
               })}
             </tr>
           </tbody><br></br><br></br><br></br><br></br>
-        <img src={this.props.newgame} width="200" onClick={this.props.handleResetClick} alt="New Game"></img>
+
+        <button className="btn btn-success btn-lg btn3d" onClick={this.props.handleResetClick}> new game</button>
+        <button className="btn btn-success btn-lg btn3d upprbtn" onClick={this.redirectToHomepage}> homepage</button>
           </div>
         </div>
     )

@@ -214,7 +214,9 @@ class App extends Component {
                                                                    emojis={emojis}
                                                                    handleEmojiChoice={this.setUserEmoji}
                                                                    user_id={this.state.user_id}
-                                                                   user_name={this.state.user_name} />}/>
+                                                                   user_name={this.state.user_name}
+                                                                   logged_in={this.state.logged_in}
+                                                                  handleLogOut={this.handleLogOut} />}/>
           <Route exact path ='/createaccount' component={() => <Createaccount createAccount={this.createAccount}
                                                                   logged_in={this.state.logged_in}/>}/>
       </Router>
