@@ -21,17 +21,13 @@ export default class Login extends Component {
   }
 
   render(){
-    const loggedIn = this.props.logged_in
-    const createAccount = this.state.createaccount
-    if(loggedIn === true){
+    if(this.props.logged_in === true){
       return <Redirect to='/homepage'/>
     }
-    if(createAccount === true){
+    if(this.state.createaccount === true){
       return <Redirect to='/createaccount' />
     }
-
     return (
-
     <div>
       <h2> Welcome to Farm Frenzy </h2>
       <h4> Play Live Games Online with Fellow Farmers</h4>
