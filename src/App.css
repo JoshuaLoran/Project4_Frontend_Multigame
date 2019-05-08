@@ -13,6 +13,11 @@ body {
   background-image: url('./images/farm.jpg');
   background-repeat: no-repeat;
   background-size: cover;
+  background-attachment: fixed;
+}
+
+.bottom{
+  margin-top: 5%;
 }
 
 .tictactoepg{
@@ -22,6 +27,12 @@ body {
 
 .newgame{
   height: 10%;
+}
+
+.tileImage:hover{
+  outline: none;
+  border: ridge;
+  border-color: white;
 }
 
 .emojioptions{

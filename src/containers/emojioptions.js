@@ -12,7 +12,7 @@ render(){
         if (idx === 6){
           return null
         }
-        return <img onClick={this.props.handleEmojiChoice} key={idx} id={idx} src={emoji} alt="BrokeAF"></img>
+        return <img className={this.props.passedClass}  tabIndex="0" onClick={this.props.handleEmojiChoice} key={idx} id={idx} src={emoji} alt="animal"></img>
       })}
     </Fragment>
   )

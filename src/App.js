@@ -12,10 +12,9 @@ import Horse from './images/horse.png'
 import Mouse from './images/mouse.png'
 import Pig from './images/pig.png'
 import Rooster from './images/rooster.png'
-import NewGame from './images/newGame.png'
 
 // Some vars that shouldn't be state
-const emojis = [Cow, Chick, Horse, Mouse, Pig, Rooster, NewGame]
+const emojis = [Cow, Chick, Horse, Mouse, Pig, Rooster]
 const ticTacToeReset = [{id: 0, user_emoji: ''},
                         {id: 0, user_emoji: ''},
                         {id: 0, user_emoji: ''},
@@ -38,6 +37,7 @@ class App extends Component {
     user_name: undefined,
     user_emoji: emojis[0],
     opponent_emoji: '',
+    passed_class: 'tileImage',
     logged_in: false,
     winner: 0,
     new_game: ''
@@ -183,7 +183,7 @@ class App extends Component {
     return (
       <Router>
 
-         <Route exact path='/login' component={() => <Login handleLogin={this.handleLogin}
+         <Route exact path='/' component={() => <Login handleLogin={this.handleLogin}
                                                             logged_in={this.state.logged_in} />}/>
          <Route exact path='/tictactoe' component={() => <GameBoard handleResetClick={this.handleResetClick}
                                                                     array={this.state.array}
@@ -194,6 +194,7 @@ class App extends Component {
           <Route exact path='/homepage' component={() => <Homepage handleResetClick={this.handleResetClick}
                                                                    userEmoji={this.state.user_emoji}
                                                                    emojis={emojis}
+                                                                   passedClass={this.state.passed_class}
                                                                    newGame={this.state.new_game}
                                                                    handleEmojiChoice={this.setUserEmoji}
                                                                    user_id={this.state.user_id}
