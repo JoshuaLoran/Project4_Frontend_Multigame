@@ -39,9 +39,8 @@ export default class GameBoard extends Component {
             <h2>Wins: {this.props.userWins}</h2>
           </div>
           <div className='upper-right'>
-            <h2>{this.name()}</h2>
-            <img src={this.props.userEmoji} alt=''></img>
-            <h2>Wins: {this.props.userWins}</h2>
+            <h2>Opponent</h2>
+            <img src={this.props.opponentEmoji} alt=''></img>
           </div>
         <h1>Tic Tac Toe</h1>
           <tbody className='table'>

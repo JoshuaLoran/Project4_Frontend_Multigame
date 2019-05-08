@@ -36,7 +36,7 @@ class App extends Component {
     user_id: 0,
     user_name: '',
     user_emoji: emojis[0],
-    opponent_emoji: '',
+    opponent_emoji: emojis[0],
     passed_class: 'tileImage',
     logged_in: false,
     winner: 0,
@@ -222,7 +222,8 @@ class App extends Component {
                                                                     clickHandle={this.clickHandle}
                                                                     userEmoji={this.state.user_emoji}
                                                                     userName={this.state.user_name}
-                                                                    userWins={this.state.wins} />}/>
+                                                                    userWins={this.state.wins} />}
+                                                                    opponentEmoji={this.state.opponent_emoji}/>
           <Route exact path='/homepage' component={() => <Homepage handleResetClick={this.handleResetClick}
                                                                    userEmoji={this.state.user_emoji}
                                                                    emojis={emojis}
