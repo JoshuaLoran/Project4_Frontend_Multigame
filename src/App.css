@@ -43,7 +43,6 @@ body {
     position: relative;
     justify-content: center;
     display: inline-block;
-
     top: -6px;
     border: 0;
     transition: all 40ms linear;
@@ -65,8 +64,13 @@ body {
     outline: medium none;
 }
 
+input {
+  height: 23px;
+}
+
 .pwfield {
   margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .upprbtn {

@@ -33,8 +33,9 @@ export default class Login extends Component {
     return (
 
     <div>
-      <h2> Welcome to Farm Games </h2>
-      <h5> Please Login or Create a New Account </h5>
+      <h2> Welcome to Farm Frenzy </h2>
+      <h4> Play Live Games Online with Fellow Farmers</h4>
+      <h6> Login or Create a New Account </h6>
       <form>
       <input  type="text" placeholder="username" value={this.state.name} name="name" onChange={this.handleChange}/> <br/>
       <input  className="pwfield" type="password" placeholder="password" name="pw" value={this.state.pw} onChange={this.handleChange} required/> <br/>
