@@ -18,6 +18,12 @@ export default class GameBoard extends Component {
   redirectToHomepage = () => {
     this.setState({homePage: true})
   }
+
+  name(){
+    let name = this.props.userName.charAt(0).toUpperCase() + this.props.userName.slice(1);
+    return name
+  }
+
   // Render the gameboard by mapping the game array and it's interactions over the board
   render(){
     const homePage = this.state.homePage
@@ -27,6 +33,16 @@ export default class GameBoard extends Component {
     return(
       <div>
         <div className='gameboarddiv'>
+          <div className='upper-left'>
+            <h2>{this.name()}</h2>
+            <img src={this.props.userEmoji} alt=''></img>
+            <h2>Wins: {this.props.userWins}</h2>
+          </div>
+          <div className='upper-right'>
+            <h2>{this.name()}</h2>
+            <img src={this.props.userEmoji} alt=''></img>
+            <h2>Wins: {this.props.userWins}</h2>
+          </div>
         <h1>Tic Tac Toe</h1>
           <tbody className='table'>
             <tr>

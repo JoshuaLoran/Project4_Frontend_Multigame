@@ -27,7 +27,7 @@ export default class Homepage extends Component {
                         handleEmojiChoice={this.props.handleEmojiChoice}
                         userEmoji={this.props.userEmoji}
                         emojis={this.props.emojis}/><br></br><br></br>
-            <h2 className='bottom'>Your Avatar: </h2><br></br><img src={this.props.userEmoji} alt=''></img><br></br>
+                      <h2 className='bottom fromBot'>Your Avatar: </h2><img src={this.props.userEmoji} alt=''></img><br></br>
             <button className="btn btn-success btn-lg btn3d upprbtn" onClick={this.props.handleLogOut}> log out </button>
       </div>
     )

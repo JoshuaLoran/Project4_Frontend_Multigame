@@ -3,7 +3,6 @@ import React, { Component } from 'react'
 import './App.css'
 import ActionCable from 'actioncable'
 import {BrowserRouter as Router, Route} from 'react-router-dom'
-import { Redirect } from 'react-router-dom'
 import GameBoard from './containers/gameboard'
 import Login from './components/login'
 import Homepage from './components/homepage'
@@ -31,20 +30,19 @@ const ticTacToeReset = [{id: 0, user_emoji: ''},
 // The class and it's workings
 class App extends Component {
 
-
   // Setup a gameboard
   state = {
     array: ticTacToeReset,
     user_id: 0,
-    user_name: undefined,
+    user_name: '',
     user_emoji: emojis[0],
     opponent_emoji: '',
     passed_class: 'tileImage',
     logged_in: false,
     winner: 0,
-    new_game: ''
+    new_game: '',
+    wins: 0
   }
-
 
   // Reset game with fresh data
   handleResetClick = (event) => {
@@ -76,8 +74,9 @@ class App extends Component {
       if(arr[0].id === arr[1].id && arr[0].id === arr[2].id){
         this.sub.send({winner: arr[0].id})
         this.setState({
-          winner: arr[0].id
+          winner: arr[0].id,
         })
+        this.updateUserWins()
       }
     }
   }
@@ -132,9 +131,9 @@ class App extends Component {
       .then(resp => resp.json())
       .then(data => {
         if(data.message){
-          alert('line 129') //replace with data.message - could potentially delete this line
+          alert(data.meassage) //replace with data.message - could potentially delete this line
         } else {
-          this.setState({user_id: data.user.id, user_name: data.user.name, logged_in: true})
+          this.setState({wins: data.user.wins, user_id: data.user.id, user_name: data.user.name, logged_in: true})
         }
       })
   }
@@ -170,7 +169,6 @@ class App extends Component {
 
 
  handleLogOut = () => {
-   console.log('inside handle logout')
    this.setState({
      user_id: 0,
      user_name: undefined,
@@ -186,14 +184,29 @@ class App extends Component {
     let config = {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({name: name, password: pw})
+      body: JSON.stringify({name: name, password: pw, wins: 0})
     }
     fetch(url, config)
       .then(resp => resp.json())
       .then(data => {
-        console.log(data)
         this.setState({user_id: data.user.id, user_name: data.user.name, logged_in: true})
       })
+  }
+
+  updateUserWins = () => {
+    let url = 'http://localhost:3001/users/' + this.state.user_id
+    console.log(url)
+    let config = {
+      method: 'PATCH',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({wins: this.state.wins+1})
+    }
+    fetch(url, config)
+      .then(res => res.json())
+      .then(data => console.log(data,'------210'))
+    this.setState({
+      wins: this.state.wins + 1
+    })
   }
 
  //some form of user input for testing
@@ -207,7 +220,9 @@ class App extends Component {
          <Route exact path='/tictactoe' component={() => <GameBoard handleResetClick={this.handleResetClick}
                                                                     array={this.state.array}
                                                                     clickHandle={this.clickHandle}
-                                                                    userEmoji={this.state.user_emoji} />}/>
+                                                                    userEmoji={this.state.user_emoji}
+                                                                    userName={this.state.user_name}
+                                                                    userWins={this.state.wins} />}/>
           <Route exact path='/homepage' component={() => <Homepage handleResetClick={this.handleResetClick}
                                                                    userEmoji={this.state.user_emoji}
                                                                    emojis={emojis}

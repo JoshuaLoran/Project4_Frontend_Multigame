@@ -20,6 +20,10 @@ body {
   margin-top: 5%;
 }
 
+.fromBot{
+  bottom: px;
+}
+
 
 
 .btn3d.btn-success {
@@ -73,6 +77,18 @@ body {
   position: absolute;
   top: 0;
   right: 30px;
+}
+
+.upper-right{
+  position: absolute;
+  top: 10%;
+  right: 2%;
+}
+
+.upper-left{
+  position: absolute;
+  top: 10%;
+  left: 2%;
 }
 
 .tictactoepg{
