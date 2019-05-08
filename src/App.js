@@ -3,15 +3,18 @@ import React, { Component } from 'react'
 import './App.css'
 import ActionCable from 'actioncable'
 import {BrowserRouter as Router, Route} from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 import GameBoard from './containers/gameboard'
 import Login from './components/login'
 import Homepage from './components/homepage'
+import Createaccount from './components/createaccount'
 import Cow from './images/cow.png'
 import Chick from './images/chick.png'
 import Horse from './images/horse.png'
 import Mouse from './images/mouse.png'
 import Pig from './images/pig.png'
 import Rooster from './images/rooster.png'
+import Farm from './images/farm.jpg'
 import NewGame from './images/newGame.png'
 
 // Some vars that shouldn't be state
@@ -94,7 +97,6 @@ class App extends Component {
 
   // Set state with incoming data
   handleReceiveNewData = (data) => {
-    console.log(data)
     if (data.array !== this.state.array) {
       this.setState({
         array: data.array
@@ -167,17 +169,35 @@ class App extends Component {
       })
   }
 
-  handleLogOut = () => {
-    console.log('inside handle logout')
-    this.setState({
-      user_id: 0,
-      user_name: undefined,
-      user_emoji: "",
-      logged_in: false
-    })
+
+ handleLogOut = () => {
+   console.log('inside handle logout')
+   this.setState({
+     user_id: 0,
+     user_name: undefined,
+     user_emoji: "",
+     logged_in: false
+   })
+ }
+
+
+  createAccount = (e, name, pw) => {
+    e.preventDefault()
+    let url = 'http://localhost:3001/users'
+    let config = {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({name: name, password: pw})
+    }
+    fetch(url, config)
+      .then(resp => resp.json())
+      .then(data => {
+        console.log(data)
+        this.setState({user_id: data.user.id, user_name: data.user.name, logged_in: true})
+      })
   }
 
- // Routes and components
+ //some form of user input for testing
 
   render() {
     return (
@@ -188,19 +208,15 @@ class App extends Component {
          <Route exact path='/tictactoe' component={() => <GameBoard handleResetClick={this.handleResetClick}
                                                                     array={this.state.array}
                                                                     clickHandle={this.clickHandle}
-                                                                    userEmoji={this.state.user_emoji}
-                                                                    newgame={emojis[6]} />}/>
-
+                                                                    userEmoji={this.state.user_emoji} />}/>
           <Route exact path='/homepage' component={() => <Homepage handleResetClick={this.handleResetClick}
                                                                    userEmoji={this.state.user_emoji}
                                                                    emojis={emojis}
-                                                                   newGame={this.state.new_game}
                                                                    handleEmojiChoice={this.setUserEmoji}
                                                                    user_id={this.state.user_id}
-                                                                   user_name={this.state.user_name}
-                                                                   logged_in={this.state.logged_in}
-                                                                   handleLogOut={this.handleLogOut} />}/>
-
+                                                                   user_name={this.state.user_name} />}/>
+          <Route exact path ='/createaccount' component={() => <Createaccount createAccount={this.createAccount}
+                                                                  logged_in={this.state.logged_in}/>}/>
       </Router>
     )
   }
