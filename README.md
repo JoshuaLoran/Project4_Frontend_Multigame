@@ -15,7 +15,10 @@ Farm Frenzy is an online gaming platform. Players can sign in and play live game
 After creating an account, users can select a game to play as well as their desired icon for that game.  Users will be matched with another player who has selected the same game.  Games will be updated in real time on each player's screen. 
 
 ## Access Instructions
-This project is hosted on Heroku and can be accessed here: 
+1. Clone the frontend repository as well as the backend repository. 
+2. Backend: run `bundle install`, `rails db:migrate`, `rails db:seed`, `rails s -p 3001`
+3. Frontend: run `bundle install`, `npm start`
+4. If you have two players participating, be sure to open two Farm Frenzy pages by running `npm start` in two separate terminal    tabs.
 
 ## Project Requirements
 1.	Create a fully functioning application.
