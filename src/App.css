@@ -16,6 +16,14 @@ body {
   background-attachment: fixed;
 }
 
+.win{
+  color: #78d739;
+}
+
+.lose{
+  color: #e9241d;
+}
+
 .bottom{
   margin-top: 5%;
 }

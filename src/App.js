@@ -37,6 +37,7 @@ class App extends Component {
     user_name: '',
     user_emoji: emojis[0],
     opponent_emoji: emojis[0],
+    opponent_id: 0,
     passed_class: 'tileImage',
     logged_in: false,
     winner: 0,
@@ -57,7 +58,7 @@ class App extends Component {
       new_game: 'tictactoe',
       winner: 0
     })
-    this.sub.send({ array: ticTacToeReset, id: 1, winner: 0 })
+    this.sub.send({ array: ticTacToeReset, id: 1})
   }
 
   ticTacToeCheckTwo(){
@@ -79,7 +80,6 @@ class App extends Component {
   checkarr(arr){
     if(arr[0].id !== 0 && arr[1].id !== 0 && arr[2].id !== 0){
       if(arr[0].id === arr[1].id && arr[0].id === arr[2].id){
-        this.sub.send({winner: arr[0].id})
         this.setState({
           winner: arr[0].id,
         })
@@ -106,6 +106,19 @@ class App extends Component {
       this.setState({
         array: data.array
       })
+      this.grabOpponentEmoji(data.array)
+    }
+      this.ticTacToeCheckTwo()
+  }
+  grabOpponentEmoji(arr){
+    for(var i=0; i<arr.length; i++){
+      if(arr[i].id !== this.state.user_id && arr[i].id !== 0){
+        this.setState({
+          opponent_emoji: arr[i].user_emoji,
+          opponent_id: arr[i].id
+        })
+        return
+      }
     }
   }
 
@@ -124,8 +137,7 @@ class App extends Component {
         newArr[i] = {id: this.state.user_id, user_emoji: this.state.user_emoji}
       }
     }
-    this.sub.send({ array: newArr, id: 1, winner: this.state.winner})
-    this.ticTacToeCheckTwo()
+    this.sub.send({ array: newArr, id: 1})
   }
 
   getProfile = () => { //get profile of user
@@ -236,6 +248,8 @@ class App extends Component {
                                                                     userName={this.state.user_name}
                                                                     userWins={this.state.wins}
                                                                     opponentEmoji={this.state.opponent_emoji}
+                                                                    winner={this.state.winner}
+                                                                    user_id={this.state.user_id}
                                                                     newGame={this.state.new_game}
                                                                     changeNewGameState={this.changeNewGameState}/>}/>
           <Route exact path='/homepage' component={() => <Homepage handleResetClick={this.handleResetClick}

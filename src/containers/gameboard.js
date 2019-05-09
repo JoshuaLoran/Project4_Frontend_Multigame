@@ -15,6 +15,15 @@ export default class GameBoard extends Component {
     }
   }
 
+  displayWinner(){
+    if (this.props.winner === this.props.user_id && this.props.winner !== 0){
+      return <h1 className='win'>YOU WIN!</h1>
+    }
+    if (this.props.winner !== this.props.user_id && this.props.winner !== 0){
+      return <h1 className='lose' >YOU LOSE!</h1>
+    }
+  }
+
   onClickRedirect = () => {
     this.setState({ homepage: true })
   }
@@ -33,12 +42,12 @@ export default class GameBoard extends Component {
       <div>
         <div className='gameboarddiv'>
           <div className='upper-left'>
-            <h2>{this.name()}</h2>
+            <h4>{this.name()}</h4>
             <img src={this.props.userEmoji} alt=''></img>
-            <h2>Wins: {this.props.userWins}</h2>
+            <h4>Wins: {this.props.userWins}</h4>
           </div>
           <div className='upper-right'>
-            <h2>Opponent</h2>
+            <h4>Opponent</h4>
             <img src={this.props.opponentEmoji} alt=''></img>
           </div>
         <h1>Tic Tac Toe</h1>
@@ -70,8 +79,8 @@ export default class GameBoard extends Component {
                 }
               })}
             </tr>
-          </tbody><br></br><br></br><br></br><br></br>
-
+          </tbody><br></br><br></br>
+        {this.displayWinner()}<br></br>
         <button className="btn btn-success btn-lg btn3d" onClick={this.props.handleResetClick}> new game</button>
         <button className="btn btn-success btn-lg btn3d upprbtn" onClick={this.onClickRedirect}> homepage</button>
           </div>
