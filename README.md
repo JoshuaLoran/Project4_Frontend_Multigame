@@ -5,7 +5,7 @@
 
 ###### Project completed as part of [Flatiron School](https://flatironschool.comcampuses/seattle/) curriculum.
 
-[project gif]
+![project gif](https://github.com/WTFCodingPotato/Project4_Frontend_Multigame/blob/master/ezgif.com-video-to-gif.gif)
 
 ## Project FAQ
 #### 1. What is Farm Frenzy?
