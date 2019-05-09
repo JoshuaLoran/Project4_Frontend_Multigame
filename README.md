@@ -17,8 +17,10 @@ After creating an account, users can select a game to play as well as their desi
 ## Access Instructions
 1. Clone the frontend repository as well as the backend repository. 
 2. Backend: run `bundle install`, `rails db:migrate`, `rails db:seed`, `rails s -p 3001`
-3. Frontend: run `bundle install`, `npm start`
-4. If you have two players participating, be sure to open two Farm Frenzy pages by running `npm start` in two separate terminal    tabs.
+3. Backend: create an `application.yml` file to live inside config. Inside this file create your own secret such as 
+   my_secret: 123. This secret will be used for authentication.
+4. Frontend: run `bundle install`, `npm start`
+5. If you have two players participating, be sure to open two Farm Frenzy pages by running `npm start` in two separate terminal    tabs.
 
 ## Project Requirements
 1.	Create a fully functioning application.
